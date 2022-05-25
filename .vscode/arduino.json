@@ -1,0 +1,6 @@
+{
+  "board": "arduino:avr:uno",
+  "programmer": "arduino:avrispmkii",
+  "sketch": "sketch_may25a.ino",
+  "output": "build/"
+}
