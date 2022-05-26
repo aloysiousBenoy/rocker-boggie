@@ -10,11 +10,11 @@
 #define ML_1 12
 #define ML_2 13
 
-#define BR_1 6
-#define BR_2 7
+#define BR_1 9
+#define BR_2 8
 
-#define BL_1 8
-#define BL_2 9
+#define BL_1 7
+#define BL_2 6
 
 // A0 FWD & BWD
 // A1 LEFT and RIGHT
@@ -34,7 +34,6 @@ void stop();
 
 void setup()
 {
-
   init_pins();
 }
 
@@ -68,6 +67,8 @@ void init_pins()
 
 void read_inputs()
 {
+  // 10-bit 0-1023
+  // 8-bit 1024/4 -> 0-255
   throttle = analogRead(A0) / 4;
   turn = analogRead(A1) / 4;
 }
@@ -77,7 +78,6 @@ void set_direction()
   if (throttle > 180)
   {
     move_forward();
-    return;
   }
   else if (throttle < 80)
   {
@@ -103,6 +103,12 @@ void move_forward()
   digitalWrite(FR_1, HIGH);
   digitalWrite(FR_2, LOW);
 
+  digitalWrite(ML_1, LOW);
+  digitalWrite(ML_2, HIGH);
+
+  digitalWrite(MR_1, LOW);
+  digitalWrite(MR_2, HIGH);
+
   digitalWrite(BL_1, LOW);
   digitalWrite(BL_2, HIGH);
 
@@ -117,11 +123,17 @@ void move_back()
   digitalWrite(FR_1, LOW);
   digitalWrite(FR_2, HIGH);
 
-  digitalWrite(BL_1, LOW);
-  digitalWrite(BL_2, HIGH);
+  digitalWrite(ML_1, HIGH);
+  digitalWrite(ML_2, LOW);
 
-  digitalWrite(BR_1, LOW);
-  digitalWrite(BR_2, HIGH);
+  digitalWrite(MR_1, HIGH);
+  digitalWrite(MR_2, LOW);
+
+  digitalWrite(BL_1, HIGH);
+  digitalWrite(BL_2, LOW);
+
+  digitalWrite(BR_1, HIGH);
+  digitalWrite(BR_2, LOW);
 }
 
 void turn_left()
@@ -132,11 +144,17 @@ void turn_left()
   digitalWrite(FR_1, HIGH);
   digitalWrite(FR_2, LOW);
 
-  digitalWrite(BL_1, LOW);
-  digitalWrite(BL_2, HIGH);
+  digitalWrite(ML_1, HIGH);
+  digitalWrite(ML_2, LOW);
 
-  digitalWrite(BR_1, HIGH);
-  digitalWrite(BR_2, LOW);
+  digitalWrite(MR_1, LOW);
+  digitalWrite(MR_2, HIGH);
+
+  digitalWrite(BL_1, HIGH);
+  digitalWrite(BL_2, LOW);
+
+  digitalWrite(BR_1, LOW);
+  digitalWrite(BR_2, HIGH);
 }
 void turn_right()
 {
@@ -146,11 +164,17 @@ void turn_right()
   digitalWrite(FR_1, LOW);
   digitalWrite(FR_2, HIGH);
 
-  digitalWrite(BL_1, HIGH);
-  digitalWrite(BL_2, LOW);
+  digitalWrite(ML_1, LOW);
+  digitalWrite(ML_2, HIGH);
 
-  digitalWrite(BR_1, LOW);
-  digitalWrite(BR_2, HIGH);
+  digitalWrite(MR_1, HIGH);
+  digitalWrite(MR_2, LOW);
+
+  digitalWrite(BL_1, LOW);
+  digitalWrite(BL_2, HIGH);
+
+  digitalWrite(BR_1, HIGH);
+  digitalWrite(BR_2, LOW);
 }
 
 void stop()
@@ -160,6 +184,12 @@ void stop()
 
   digitalWrite(FR_1, HIGH);
   digitalWrite(FR_2, HIGH);
+
+  digitalWrite(ML_1, HIGH);
+  digitalWrite(ML_2, HIGH);
+
+  digitalWrite(MR_1, HIGH);
+  digitalWrite(MR_2, HIGH);
 
   digitalWrite(BL_1, HIGH);
   digitalWrite(BL_2, HIGH);
